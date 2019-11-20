@@ -45,7 +45,10 @@ public class TextoPantalla implements Serializable {
     @Size(min = 1, max = 80)
     @Column(name = "texto")
     private String texto;
-    @JoinColumn(name = "pantalla_id", referencedColumnName="id", insertable = false, updatable = false)
+  
+    
+    @NotNull
+    @JoinColumn(name = "pantalla_id")
     @ManyToOne(optional = false)
     private Pantalla pantalla;
 

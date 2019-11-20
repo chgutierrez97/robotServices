@@ -2,10 +2,13 @@ package com.ws.service.api;
 
 import com.ws.service.dto.Input;
 import com.ws.service.dto.Pantalla;
+import com.ws.service.dto.TextoPantalla;
 import com.ws.service.reqrep.ListaMacroIO;
 import com.ws.service.reqrep.PantallaIO;
+import com.ws.service.reqrep.TextoPantallaIO;
 import com.ws.service.servi.InputService;
 import com.ws.service.servi.PantallaService;
+import com.ws.service.servi.TextoPantallaService;
 import com.ws.service.servi.TransaccionService;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +33,8 @@ public class PantallaApi {
     
      @Autowired
     InputService inputService;
+     @Autowired
+     TextoPantallaService textoPantallaService;
 
     @Autowired
     Mapper mapper;
@@ -43,9 +48,17 @@ public class PantallaApi {
         Pantalla updatedPantalla = service.save(pantalla);
         for (Input input : updatedPantalla.getInputCollection()) {
             input.setPantalla(updatedPantalla);
-            Input inputSave = inputService.save(input);
-            
+            input.setId(inputService.save(input).getId()); 
         }
+        
+        for (TextoPantalla textoPantalla : updatedPantalla.getTextoPantallaCollection()) {
+            textoPantalla.setPantalla(pantalla);
+            textoPantalla.setId(textoPantallaService.save(textoPantalla).getId());
+        }
+        
+        
+        
+        
         // Mapeo entity a response
         PantallaIO pantallatResponse = mapper.map(updatedPantalla, PantallaIO.class);
         return pantallatResponse;
