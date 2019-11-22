@@ -31,7 +31,11 @@ public class PersonaService {
     public Persona FindById(Integer id){
         return dao.findById(id).get();
     }
-    public void DeleteRolById(Integer id){
+    public Persona FindByDNI(Integer dni){
+        return dao.getPersonaByDNI(dni);
+    }
+
+      public void DeleteRolById(Integer id){
         dao.deleteById(id);
     }
 }

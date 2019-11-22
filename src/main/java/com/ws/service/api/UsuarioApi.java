@@ -103,28 +103,28 @@ public class UsuarioApi {
     }
     
     
-    @RequestMapping(value = "/findUsuarioByLogin", method = RequestMethod.GET)
-    public UsuarioIO findUsuarioByLogin(@RequestParam String  login) {    
-
-        Usuario usuario = usuarioService.FindUsuarioByLogin(login);  
-        UsuarioIO usuarioIO;
-        if(usuario!=null){
-         usuarioIO= mapper.map(usuario, UsuarioIO.class);
-           
-           Collection<SecurityQuetionIO> listSecurityQuetionIO = new ArrayList<>();
-            for (SecurityQuetion sq : usuario.getSecurityQuetionCollection()) {
-                SecurityQuetionIO secQuest = new SecurityQuetionIO();
-                secQuest.setId(sq.getId());
-                secQuest.setPreguta(sq.getPreguta());
-                secQuest.setRespuesta(sq.getRespuesta());
-                listSecurityQuetionIO.add(secQuest);
-            }
-            usuarioIO.setListSecurityQuetion(listSecurityQuetionIO);
-        }else{
-            usuarioIO = new UsuarioIO(); 
-        } 
-        return usuarioIO;
-    }
+//    @RequestMapping(value = "/findUsuarioByLogin", method = RequestMethod.GET)
+//    public UsuarioIO findUsuarioByLogin(@RequestParam String  login) {    
+//
+//        Usuario usuario = usuarioService.FindUsuarioByLogin(login);  
+//        UsuarioIO usuarioIO;
+//        if(usuario!=null){
+//         usuarioIO= mapper.map(usuario, UsuarioIO.class);
+//           
+//           Collection<SecurityQuetionIO> listSecurityQuetionIO = new ArrayList<>();
+//            for (SecurityQuetion sq : usuario.getSecurityQuetionCollection()) {
+//                SecurityQuetionIO secQuest = new SecurityQuetionIO();
+//                secQuest.setId(sq.getId());
+//                secQuest.setPreguta(sq.getPreguta());
+//                secQuest.setRespuesta(sq.getRespuesta());
+//                listSecurityQuetionIO.add(secQuest);
+//            }
+//            usuarioIO.setListSecurityQuetion(listSecurityQuetionIO);
+//        }else{
+//            usuarioIO = new UsuarioIO(); 
+//        } 
+//        return usuarioIO;
+//    }
 
     @RequestMapping(value = "/deleteUsuarioById", method = RequestMethod.GET)
     public boolean deleteUsuarioById(@RequestParam Integer id) {
@@ -140,5 +140,17 @@ public class UsuarioApi {
         }
         return flag;
     }
+    
+    @RequestMapping(value = "/findUsuarioByLogin", method = RequestMethod.GET)
+    public UsuarioIO findUsuarioByLogin(@RequestParam String login) {       
+        Usuario usuario = usuarioService.FindUsuarioByLogin(login);
+        UsuarioIO usuarioIO;    
+        if (usuario != null){
+            usuarioIO= mapper.map(usuario, UsuarioIO.class);
+        }else{
+            usuarioIO = new UsuarioIO();
+        }
+        return usuarioIO;
+    }    
 
 }

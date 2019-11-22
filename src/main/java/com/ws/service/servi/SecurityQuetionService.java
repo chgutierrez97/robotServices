@@ -30,4 +30,6 @@ public class SecurityQuetionService {
     public void DeletesecurityQuetionServiceById(Integer id){
         dao.deleteById(id);
     }
+    
+
 }

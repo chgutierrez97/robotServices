@@ -65,6 +65,17 @@ public class PersonaApi {
         return personaAux;
     }
     
+    @RequestMapping(value = "/findPersonaByDNI", method = RequestMethod.GET)
+    public PersonaIO findPersonaByDNI(@RequestParam Integer dni) {       
+        Persona pers = rolService.FindByDNI(dni); 
+        PersonaIO personaAux;
+        if(pers!=null){
+            personaAux= mapper.map(pers, PersonaIO.class);
+        }else{
+            personaAux = new PersonaIO(); 
+        }
+        return personaAux;
+    }    
 
     @RequestMapping(value = "/deletePersonaById", method = RequestMethod.GET)
     public boolean deletePersonaById(@RequestParam Integer id) {
