@@ -2,16 +2,16 @@ package com.ws.service.api;
 
 
 import com.ws.service.dto.Persona;
-import com.ws.service.dto.Roles;
+
 import com.ws.service.reqrep.ListaMacroIO;
 import com.ws.service.reqrep.PersonaIO;
-import com.ws.service.reqrep.RolesIO;
+
 import com.ws.service.servi.PersonaService;
-import com.ws.service.servi.RolService;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.dozer.Mapper;
-import org.hibernate.annotations.Parameter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -19,5 +19,8 @@ public interface PersonaRepository  extends JpaRepository<Persona, Integer> {
     @Query(value="SELECT * from persona p where p.nombre =?1",nativeQuery=true)
     List<Persona> getPersonaByName(String name);
     
+    @Query(value="SELECT * from persona p where p.dni =?1",nativeQuery=true)
+    //Persona findByDNI(int dni);
+    Persona getPersonaByDNI(int dni);    
     
 }

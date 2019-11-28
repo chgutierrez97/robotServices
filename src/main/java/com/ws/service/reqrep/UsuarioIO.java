@@ -38,7 +38,6 @@ public class UsuarioIO implements Serializable {
         this.usuario = usuario;
         this.clave = clave;
         this.fechaCarga = fechaCarga;
-        
         this.persona = persona;
         this.roles = roles;
         this.status = status;

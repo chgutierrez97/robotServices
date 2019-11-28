@@ -11,16 +11,21 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -28,7 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author audra.zapata
  */
-    @Entity
+@Entity
 @Table(name = "usuario")
 @XmlRootElement
 //@NamedQueries({
@@ -45,10 +50,10 @@ public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private int id;
+    private Integer id;
     @Basic(optional = false)
     @Column(name = "usuario")
     private String usuario;
@@ -78,11 +83,11 @@ public class Usuario implements Serializable {
     
 
 
-    public Usuario(int id) {
+    public Usuario(Integer id) {
         this.id = id;
     }
 
-    public Usuario(int id, String usuario, String clave, Date fechaCarga, Persona persona, Roles roles, Status status) {
+    public Usuario(Integer id, String usuario, String clave, Date fechaCarga, Persona persona, Roles roles, Status status) {
         this.id = id;
         this.usuario = usuario;
         this.clave = clave;
@@ -92,7 +97,7 @@ public class Usuario implements Serializable {
         this.status = status;
     }
 
-    public Usuario(int id, String usuario, String clave, Collection<Transaccion> transaccionCollection, Collection<SecurityQuetion> securityQuetionCollection, Persona persona, Roles roles, Status status) {
+    public Usuario(Integer id, String usuario, String clave, Collection<Transaccion> transaccionCollection, Collection<SecurityQuetion> securityQuetionCollection, Persona persona, Roles roles, Status status) {
         this.id = id;
         this.usuario = usuario;
         this.clave = clave;
@@ -105,10 +110,15 @@ public class Usuario implements Serializable {
 
     
     
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    
     
     public String getUsuario() {
         return usuario;
