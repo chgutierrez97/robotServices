@@ -20,6 +20,37 @@ public class TransaccionService {
     public Transaccion save(Transaccion transaccion) {
         return dao.saveAndFlush(transaccion);
     }
+    public Transaccion update(Transaccion transaccion) {
+        Transaccion trans = FindById(transaccion.getId());
+        if(transaccion.getAplicativoExternocol()!= "" && transaccion.getAplicativoExternocol()!=null){
+          trans.setAplicativoExternocol(transaccion.getAplicativoExternocol());
+        }
+        if(transaccion.getDescripcion()!="" && transaccion.getDescripcion()!=null){
+          trans.setDescripcion(transaccion.getDescripcion());
+        }
+        if(transaccion.getNombre()!="" && transaccion.getNombre()!=null){
+          trans.setNombre(transaccion.getNombre());
+        }
+        
+        if(transaccion.getTipo()!="" && transaccion.getTipo()!=null){
+         trans.setTipo(transaccion.getTipo());
+        }
+         
+        if(transaccion.getTipoAplicativo()!=null){
+            if(transaccion.getTipoAplicativo()!=0){
+                trans.setTipoAplicativo(transaccion.getTipoAplicativo());
+            }
+         
+        } 
+        
+        if( transaccion.getTransaccionIni()!=null){
+            if(transaccion.getTransaccionIni()!=0){
+                trans.setTransaccionIni(transaccion.getTransaccionIni());
+            }
+         
+        } 
+        return dao.saveAndFlush(transaccion);
+    }
 
     public List<Transaccion> FindAll() {
         return dao.findAll();

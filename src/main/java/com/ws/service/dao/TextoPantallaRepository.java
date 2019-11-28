@@ -18,4 +18,7 @@ public interface TextoPantallaRepository extends JpaRepository<TextoPantalla, In
 
     @Query(value = "select * from texto_pantalla tp where tp.pantalla_id = ?1", nativeQuery = true)
     List<TextoPantalla> getTextoPantallaByIdPantalla(Integer idPanatalla);
+
+    @Query(value = "select * from texto_pantalla tp where tp.pantalla_id = ?1", nativeQuery = true)
+    List<TextoPantalla> getTextoPantallaByIdTransaccion(Integer idPanatalla);
 }

@@ -34,10 +34,13 @@ public class TransaccionApi {
     Mapper mapper;
 
     @RequestMapping(value = "/saveTransaccion", method = RequestMethod.POST)
-    public TransaccionIO saveRol(@RequestBody TransaccionOI transaccionOI) {
+    public TransaccionIO saveTransaccion(@RequestBody TransaccionOI transaccionOI) {
         // Mapeo request a entity
+             Transaccion transaccion = new Transaccion();
+             TransaccionIO transaccionResponse ;
         
-        Transaccion transaccion = new Transaccion();
+        try {
+        
         transaccion.setAplicativoExternocol(transaccionOI.getAplicativoExternocol());
         transaccion.setDescripcion(transaccionOI.getDescripcion());
         transaccion.setFechaCarga(new Date());
@@ -46,14 +49,48 @@ public class TransaccionApi {
         transaccion.setTipoAplicativo(transaccionOI.getTipoAplicativo());
         Integer idUser = transaccionOI.getUsuario().getId();
         transaccion.setUsuario(usuarioService.FindById(idUser));
-        
-        
-         
+
         // Invoca lógica de negocio
         Transaccion updatedTransaccion = service.save(transaccion);
-        // Mapeo entity a response
-        TransaccionIO transaccionResponse = mapper.map(updatedTransaccion, TransaccionIO.class);
 
+        
+        // Mapeo entity a response
+         transaccionResponse = mapper.map(updatedTransaccion, TransaccionIO.class);
+         
+         return transaccionResponse;
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaccionResponse = new TransaccionIO();
+        }
+       
+        return transaccionResponse;
+    }
+    @RequestMapping(value = "/updateTransaccion", method = RequestMethod.POST)
+    public TransaccionIO updateTransaccion(@RequestBody TransaccionOI transaccionOI) {
+        // Mapeo request a entity
+             Transaccion transaccion = new Transaccion();
+             TransaccionIO transaccionResponse ;
+        
+        try {       
+        transaccion.setAplicativoExternocol(transaccionOI.getAplicativoExternocol());
+        transaccion.setId(transaccionOI.getId());
+        transaccion.setDescripcion(transaccionOI.getDescripcion());
+        transaccion.setFechaCarga(new Date());
+        transaccion.setNombre(transaccionOI.getNombre());
+        transaccion.setTipo(transaccionOI.getTipo());
+        transaccion.setTipoAplicativo(transaccionOI.getTipoAplicativo());
+        Integer idUser = transaccionOI.getUsuario().getId();
+        transaccion.setUsuario(usuarioService.FindById(idUser));
+        Transaccion updatedTransaccion = service.update(transaccion);
+
+         transaccionResponse = mapper.map(updatedTransaccion, TransaccionIO.class);
+         
+         return transaccionResponse;
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaccionResponse = new TransaccionIO();
+        }
+       
         return transaccionResponse;
     }
 
