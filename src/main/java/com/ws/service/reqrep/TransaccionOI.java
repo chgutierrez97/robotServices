@@ -71,7 +71,7 @@ public class TransaccionOI implements Serializable {
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.nombre = nombre.trim() ;
     }
 
     public String getDescripcion() {

@@ -89,6 +89,18 @@ public class PantallaApi {
         listResponse.setPantallasList(textoList);
         return listResponse;
     }
+    @RequestMapping(value = "/findPantallaByIdTrasaccionEmulacion", method = RequestMethod.GET)
+    public ListaMacroIO findPantallaByIdTrasaccionEmulacion(@RequestParam Integer idTransaccion) {
+        ListaMacroIO listResponse = new ListaMacroIO();
+        List<Pantalla> textos = service.getPantallaByIdTrasaccionEmulacion(idTransaccion);
+        List<PantallaIO> textoList = new ArrayList<>();
+        for (Pantalla text : textos) {
+            PantallaIO aux = mapper.map(text, PantallaIO.class);
+            textoList.add(aux);
+        }
+        listResponse.setPantallasList(textoList);
+        return listResponse;
+    }
 
     @RequestMapping(value = "/findPantallaById", method = RequestMethod.POST)
     public PantallaIO findPantallaById(@RequestBody Integer id) {

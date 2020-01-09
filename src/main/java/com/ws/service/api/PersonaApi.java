@@ -65,6 +65,13 @@ public class PersonaApi {
         return personaAux;
     }
     
+        @RequestMapping(value = "/findPersonaById", method = RequestMethod.GET)
+    public PersonaIO findPersonaByIdGet(@RequestParam  Integer id) {       
+        Persona pers = rolService.FindById(id);        
+           PersonaIO personaAux= mapper.map(pers, PersonaIO.class);
+        return personaAux;
+    }
+    
 
     @RequestMapping(value = "/deletePersonaById", method = RequestMethod.GET)
     public boolean deletePersonaById(@RequestParam Integer id) {

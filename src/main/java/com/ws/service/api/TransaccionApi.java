@@ -49,11 +49,9 @@ public class TransaccionApi {
         transaccion.setTipoAplicativo(transaccionOI.getTipoAplicativo());
         Integer idUser = transaccionOI.getUsuario().getId();
         transaccion.setUsuario(usuarioService.FindById(idUser));
-
+        transaccion.setTransaccionIni(transaccionOI.getTransaccionIni());
         // Invoca lógica de negocio
-        Transaccion updatedTransaccion = service.save(transaccion);
-
-        
+        Transaccion updatedTransaccion = service.save(transaccion); 
         // Mapeo entity a response
          transaccionResponse = mapper.map(updatedTransaccion, TransaccionIO.class);
          

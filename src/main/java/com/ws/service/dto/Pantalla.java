@@ -91,7 +91,10 @@ public class Pantalla implements Serializable {
    
     @OneToMany(mappedBy = "pantalla")
     private Collection<TextoPantalla> textoPantallaCollection;
-
+    
+    @Column(name = "id_pantalla_aso")
+    private Integer idPantallaAso;
+    
     public Pantalla() {
     }
 
@@ -165,14 +168,6 @@ public class Pantalla implements Serializable {
         this.pantallaScrips = pantallaScrips;
     }
 
-										 
-						   
-	 
-
-														 
-									   
-	 
-
     @XmlTransient
     public Collection<Input> getInputCollection() {
         return inputCollection;
@@ -198,6 +193,16 @@ public class Pantalla implements Serializable {
     public void setTextoPantallaCollection(Collection<TextoPantalla> textoPantallaCollection) {
         this.textoPantallaCollection = textoPantallaCollection;
     }
+
+    public Integer getIdPantallaAso() {
+        return idPantallaAso;
+    }
+
+    public void setIdPantallaAso(Integer idPantallaAso) {
+        this.idPantallaAso = idPantallaAso;
+    }
+    
+    
 
     @Override
     public int hashCode() {

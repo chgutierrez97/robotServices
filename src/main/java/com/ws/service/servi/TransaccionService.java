@@ -71,6 +71,9 @@ public class TransaccionService {
     public Transaccion FindById(Integer id) {
         return dao.getTransaccionById(id);
     }
+    public Transaccion getTransaccionByNombre(String nombre) {
+        return dao.getTransaccionByNombre(nombre);
+    }
 
     public void DeleteTransaccionById(Integer id) {
         dao.deleteById(id);

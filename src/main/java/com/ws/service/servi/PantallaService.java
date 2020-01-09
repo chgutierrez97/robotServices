@@ -28,6 +28,9 @@ public class PantallaService {
     public List<Pantalla> getPantallaByIdTrasaccion(Integer idTransaccion) {
         return dao.getPantallaByIdTrasaccion(idTransaccion);
     }
+    public List<Pantalla> getPantallaByIdTrasaccionEmulacion(Integer idTransaccion) {
+        return dao.getPantallaByIdTrasaccionEmulacion(idTransaccion);
+    }
 
     public Pantalla FindById(Integer id) {
         return dao.findById(id).get();
