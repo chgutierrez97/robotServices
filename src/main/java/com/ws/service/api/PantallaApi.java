@@ -27,14 +27,14 @@ public class PantallaApi {
 
     @Autowired
     PantallaService service;
-    
+
     @Autowired
     TransaccionService transaccionService;
-    
-     @Autowired
+
+    @Autowired
     InputService inputService;
-     @Autowired
-     TextoPantallaService textoPantallaService;
+    @Autowired
+    TextoPantallaService textoPantallaService;
 
     @Autowired
     Mapper mapper;
@@ -48,17 +48,14 @@ public class PantallaApi {
         Pantalla updatedPantalla = service.save(pantalla);
         for (Input input : updatedPantalla.getInputCollection()) {
             input.setPantalla(updatedPantalla);
-            input.setId(inputService.save(input).getId()); 
+            input.setId(inputService.save(input).getId());
         }
-        
+
         for (TextoPantalla textoPantalla : updatedPantalla.getTextoPantallaCollection()) {
             textoPantalla.setPantalla(pantalla);
             textoPantalla.setId(textoPantallaService.save(textoPantalla).getId());
         }
-        
-        
-        
-        
+
         // Mapeo entity a response
         PantallaIO pantallatResponse = mapper.map(updatedPantalla, PantallaIO.class);
         return pantallatResponse;
@@ -89,6 +86,22 @@ public class PantallaApi {
         listResponse.setPantallasList(textoList);
         return listResponse;
     }
+
+    @RequestMapping(value = "/updateScripPantalla", method = RequestMethod.GET)
+    public Boolean updateScripPantalla(@RequestParam String scrips, @RequestParam Integer pantallaId) {
+        boolean flag = true;
+        try {
+            service.updateScripPantalla(scrips, pantallaId);
+        } catch (EmptyResultDataAccessException e) {
+            flag = false;
+            e.printStackTrace();
+        } catch (Exception e) {
+            flag = false;
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
     @RequestMapping(value = "/findPantallaByIdTrasaccionEmulacion", method = RequestMethod.GET)
     public ListaMacroIO findPantallaByIdTrasaccionEmulacion(@RequestParam Integer idTransaccion) {
         ListaMacroIO listResponse = new ListaMacroIO();
@@ -114,6 +127,21 @@ public class PantallaApi {
         boolean flag = true;
         try {
             service.DeletePantallaById(id);
+        } catch (EmptyResultDataAccessException e) {
+            flag = false;
+            e.printStackTrace();
+        } catch (Exception e) {
+            flag = false;
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    @RequestMapping(value = "/deletePantallaByTransaccionId", method = RequestMethod.GET)
+    public boolean deletePantallaByTransaccionId(@RequestParam Integer id) {
+        boolean flag = true;
+        try {
+            service.DeletePantallaByTransaccionId(id);
         } catch (EmptyResultDataAccessException e) {
             flag = false;
             e.printStackTrace();

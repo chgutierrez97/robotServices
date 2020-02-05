@@ -35,6 +35,17 @@ public class InputApi {
         InputIO inputResponse = mapper.map(updatedInput, InputIO.class);
         return inputResponse;
     }
+    
+    @RequestMapping(value = "/updateInput", method = RequestMethod.POST)
+    public InputIO updateInput(@RequestBody InputIO inputIO) {
+        // Mapeo request a entity
+        Input input = mapper.map(inputIO, Input.class);
+        // Invoca lógica de negocio
+        Input updatedInput = service.Update(input);
+        // Mapeo entity a response
+        InputIO inputResponse = mapper.map(updatedInput, InputIO.class);
+        return inputResponse;
+    }
 
     @RequestMapping(value = "/findAllInput", method = RequestMethod.GET)
     public ListaMacroIO findAllInput() {

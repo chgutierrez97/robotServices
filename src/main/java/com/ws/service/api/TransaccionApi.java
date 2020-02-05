@@ -6,6 +6,7 @@ import com.ws.service.reqrep.TransaccionIO;
 import com.ws.service.reqrep.ListaMacroIO;
 import com.ws.service.reqrep.TextoPantallaIO;
 import com.ws.service.reqrep.TransaccionOI;
+import com.ws.service.servi.PantallaService;
 import com.ws.service.servi.TransaccionService;
 import com.ws.service.servi.UsuarioService;
 import java.util.ArrayList;
@@ -29,8 +30,11 @@ public class TransaccionApi {
     TransaccionService service;
     @Autowired
     UsuarioService usuarioService;
-
     @Autowired
+    PantallaService pantallaService;
+    
+
+    @Autowired        
     Mapper mapper;
 
     @RequestMapping(value = "/saveTransaccion", method = RequestMethod.POST)

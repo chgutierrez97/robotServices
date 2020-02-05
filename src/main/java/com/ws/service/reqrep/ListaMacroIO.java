@@ -5,6 +5,7 @@
  */
 package com.ws.service.reqrep;
 
+import com.ws.service.dto.ExpresionesRegulares;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,6 +21,8 @@ public class ListaMacroIO {
     private List<StatusIO> StatusList;
     private List<TextoPantallaIO> TextoPantallaList;
     private List<UsuarioIO> UsuarioList;
+    private List<ExpresionesRegularesIO> ExpresionesList;
+    
 
 
     public List<TransaccionIO> getTransaccionList() {
@@ -94,8 +97,12 @@ public class ListaMacroIO {
         this.UsuarioList = UsuarioList;
     }
 
-    
+    public List<ExpresionesRegularesIO> getExpresionesList() {
+        return ExpresionesList;
+    }
 
- 
-    
+    public void setExpresionesList(List<ExpresionesRegularesIO> ExpresionesList) {
+        this.ExpresionesList = ExpresionesList;
+    }
+       
 }

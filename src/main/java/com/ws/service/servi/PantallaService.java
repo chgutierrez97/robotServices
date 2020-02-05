@@ -39,4 +39,11 @@ public class PantallaService {
     public void DeletePantallaById(Integer id) {
         dao.deleteById(id);
     }
+    
+    public void updateScripPantalla(String scrips,Integer pantallaId) {
+        dao.updateScripPantalla(scrips, pantallaId);
+    }
+    public Integer DeletePantallaByTransaccionId(Integer id) {
+       return dao.deleteByTransaccionId(id);
+    }
 }

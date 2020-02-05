@@ -21,6 +21,14 @@ public class InputService {
     public Input save(Input input){
         return dao.saveAndFlush(input);
     }
+    public Input Update(Input input){
+        Input auxiliar = dao.findById(input.getId()).get();
+        if(input.getInputValue()!= "" && input.getInputValue()!=null){
+          auxiliar.setInputValue(input.getInputValue());
+        }
+ 
+        return dao.saveAndFlush(auxiliar);
+    }
     public List<Input> FindAll(){
         return dao.findAll();
     }
