@@ -77,6 +77,10 @@ public class Usuario implements Serializable {
     @JoinColumn(name = "status_id")
     @ManyToOne(optional = false)
     private Status status;
+    @Column(name = "logueado")
+    private Boolean logueado;
+    @Column(name = "fecha_logueo")
+    private Long fechaLogueo;
 
     public Usuario() {
     }
@@ -106,6 +110,20 @@ public class Usuario implements Serializable {
         this.persona = persona;
         this.roles = roles;
         this.status = status;
+    }
+
+    public Usuario(Integer id, String usuario, String clave, Date fechaCarga, Collection<Transaccion> transaccionCollection, Collection<SecurityQuetion> securityQuetionCollection, Persona persona, Roles roles, Status status, Boolean logueado, Long fechaLogueo) {
+        this.id = id;
+        this.usuario = usuario;
+        this.clave = clave;
+        this.fechaCarga = fechaCarga;
+        this.transaccionCollection = transaccionCollection;
+        this.securityQuetionCollection = securityQuetionCollection;
+        this.persona = persona;
+        this.roles = roles;
+        this.status = status;
+        this.logueado = logueado;
+        this.fechaLogueo = fechaLogueo;
     }
 
     
@@ -186,6 +204,23 @@ public class Usuario implements Serializable {
     public void setStatus(Status status) {
         this.status = status;
     }
+
+    public Boolean getLogueado() {
+        return logueado;
+    }
+
+    public void setLogueado(Boolean logueado) {
+        this.logueado = logueado;
+    }
+
+    public Long getFechaLogueo() {
+        return fechaLogueo;
+    }
+
+    public void setFechaLogueo(Long fechaLogueo) {
+        this.fechaLogueo = fechaLogueo;
+    }
+
 
     @Override
     public int hashCode() {

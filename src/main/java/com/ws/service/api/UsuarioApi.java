@@ -10,6 +10,7 @@ import com.ws.service.servi.UsuarioService;
 import com.ws.service.util.Encriptar;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,15 +39,15 @@ public class UsuarioApi {
     
     @RequestMapping(value = "/saveUsuario", method = RequestMethod.POST)
     public UsuarioIO saveRol(@RequestBody UsuarioIO usuarioIO) {
-        // Mapeo request a entity
+        Usuario updatedUsuario = null;
         Usuario usuario = mapper.map(usuarioIO, Usuario.class);
-        //invoca encriptar datos 
-        usuario.setClave(encriptar.getHash(usuario.getClave(), TIPO_ENCRIPTACION_CLAVE));
-        // Invoca lógica de negocio
-        Usuario updatedUsuario = usuarioService.save(usuario);
-        // Mapeo entity a response
+        usuario.setClave(usuario.getClave()); 
+        if(usuario.getId()!=null){
+           updatedUsuario = usuarioService.update(usuario); 
+        }else{
+           updatedUsuario = usuarioService.save(usuario); 
+        }            
         UsuarioIO  uariotResponse = mapper.map(updatedUsuario, UsuarioIO.class);
-
         return uariotResponse; 
     }
     
@@ -140,17 +141,27 @@ public class UsuarioApi {
         }
         return flag;
     }
-//    
-//    @RequestMapping(value = "/findUsuarioByLogin", method = RequestMethod.GET)
-//    public UsuarioIO findUsuarioByLogin(@RequestParam String login) {       
-//        Usuario usuario = usuarioService.FindUsuarioByLogin(login);
-//        UsuarioIO usuarioIO;    
-//        if (usuario != null){
-//            usuarioIO= mapper.map(usuario, UsuarioIO.class);
-//        }else{
-//            usuarioIO = new UsuarioIO();
-//        }
-//        return usuarioIO;
-//    }    
+    
+    @RequestMapping(value = "/marcarSessionUsersById", method = RequestMethod.GET)
+    public boolean marcarSessionUsersById(@RequestParam Integer id,@RequestParam Boolean sessionActive) {
+        boolean flag = true;
+        try {
+            if(sessionActive.equals(Boolean.FALSE)){
+                usuarioService.updateSessionUsuario(sessionActive, 0L, id);
+            }else{
+                usuarioService.updateSessionUsuario(sessionActive, new Date().getTime(), id);
+            }
+                
+             
+        } catch (EmptyResultDataAccessException e) {
+            flag=false;
+            e.printStackTrace();
+        }catch(Exception e){
+            flag=false;
+            e.printStackTrace();
+        }
+        return flag;
+    }
+   
 
 }

@@ -6,17 +6,14 @@
 package com.ws.service.dto;
 
 import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlTransient;
+import javax.validation.constraints.Size;
+
 
 /**
  *
@@ -35,6 +32,10 @@ public class Roles implements Serializable {
     
     @Column(name = "descripcion")
     private String descripcion;
+    
+    @Size(max = 60)
+    @Column(name = "label")
+    private String label;
     
    
     public Roles() {
@@ -65,6 +66,14 @@ public class Roles implements Serializable {
         this.descripcion = descripcion;
     }
 
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

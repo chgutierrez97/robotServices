@@ -15,6 +15,9 @@ public class RolesIO implements Serializable {
     private Integer id;
 
     private String descripcion;
+    
+    private String label;
+    
   
    
     public RolesIO() {
@@ -45,6 +48,14 @@ public class RolesIO implements Serializable {
         this.descripcion = descripcion;
     }
 
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
 
     @Override
     public int hashCode() {
@@ -55,7 +66,6 @@ public class RolesIO implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof RolesIO)) {
             return false;
         }
@@ -65,11 +75,6 @@ public class RolesIO implements Serializable {
         }
         return true;
     }
-
-//    @Override
-//    public String toString() {
-//        return "com.ar.ser.model.Roles[ id=" + id + " ]";
-//    }
 
     @Override
     public String toString() {

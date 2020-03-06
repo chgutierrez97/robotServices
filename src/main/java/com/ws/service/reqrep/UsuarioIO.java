@@ -28,22 +28,27 @@ public class UsuarioIO implements Serializable {
     private PersonaIO persona;
     private RolesIO roles;
     private StatusIO status;
+    private Boolean logueado;
+    private Long fechaLogueo;
   
    
     public UsuarioIO() {
     }
 
-    public UsuarioIO(Integer id, String usuario, String clave, Date fechaCarga, Collection<SecurityQuetion> securityQuetionCollection, PersonaIO persona, RolesIO roles, StatusIO status) {
+    public UsuarioIO(Integer id, String usuario, String clave, Date fechaCarga, Collection<SecurityQuetionIO> listSecurityQuetionIO, PersonaIO persona, RolesIO roles, StatusIO status, Boolean logueado, Long fechaLogueo) {
         this.id = id;
         this.usuario = usuario;
         this.clave = clave;
         this.fechaCarga = fechaCarga;
+        this.listSecurityQuetionIO = listSecurityQuetionIO;
         this.persona = persona;
         this.roles = roles;
         this.status = status;
+        this.logueado = logueado;
+        this.fechaLogueo = fechaLogueo;
     }
-    
 
+    
     public UsuarioIO(Integer id) {
         this.id = id;
     }
@@ -117,8 +122,32 @@ public class UsuarioIO implements Serializable {
         this.status = status;
     }
 
+    public Boolean getLogueado() {
+        return logueado;
+    }
+
+    public void setLogueado(Boolean logueado) {
+        this.logueado = logueado;
+    }
+
+    public Collection<SecurityQuetionIO> getListSecurityQuetionIO() {
+        return listSecurityQuetionIO;
+    }
+
+    public void setListSecurityQuetionIO(Collection<SecurityQuetionIO> listSecurityQuetionIO) {
+        this.listSecurityQuetionIO = listSecurityQuetionIO;
+    }
+
+    public Long getFechaLogueo() {
+        return fechaLogueo;
+    }
+
+    public void setFechaLogueo(Long fechaLogueo) {
+        this.fechaLogueo = fechaLogueo;
+    }
 
 
+   
     @Override
     public int hashCode() {
         int hash = 0;
@@ -139,15 +168,6 @@ public class UsuarioIO implements Serializable {
         return true;
     }
 
-//    @Override
-//    public String toString() {
-//        return "com.ar.ser.model.Roles[ id=" + id + " ]";
-//    }
-
-//    @Override
-//    public String toString() {
-//        return "UsuarioIO{" + "id=" + id + ", usuario=" + usuario + ", clave=" + clave + ", fechaCarga=" + fechaCarga + ", persona=" + persona + ", roles=" + roles + ", status=" + status + '}';
-//    }
 
     @Override
     public String toString() {
