@@ -27,6 +27,9 @@ public interface TransaccionRepository extends JpaRepository<Transaccion, Intege
     @Query(value="select * from transaccion ts  where ts.id = ?1",nativeQuery=true)
     Transaccion getTransaccionById(Integer idUsuario);
     
+    @Query(value="select * from transaccion ts  where ts.transaccion_ini = ?1",nativeQuery=true)
+    List<Transaccion>  getTransaccionByTransaccionIniId(Integer idUsuario);
+    
     @Query(value="select * from transaccion where nombre = ?1",nativeQuery=true)
     Transaccion getTransaccionByNombre(String  nombreTr);
     

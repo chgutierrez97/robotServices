@@ -71,6 +71,10 @@ public class TransaccionService {
     public Transaccion FindById(Integer id) {
         return dao.getTransaccionById(id);
     }
+    
+    public List<Transaccion>  FindByTransaccionIniId(Integer id) {
+        return dao.getTransaccionByTransaccionIniId(id);
+    }
     public Transaccion getTransaccionByNombre(String nombre) {
         return dao.getTransaccionByNombre(nombre);
     }

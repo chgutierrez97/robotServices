@@ -32,67 +32,67 @@ public class TransaccionApi {
     UsuarioService usuarioService;
     @Autowired
     PantallaService pantallaService;
-    
 
-    @Autowired        
+    @Autowired
     Mapper mapper;
 
     @RequestMapping(value = "/saveTransaccion", method = RequestMethod.POST)
     public TransaccionIO saveTransaccion(@RequestBody TransaccionOI transaccionOI) {
         // Mapeo request a entity
-             Transaccion transaccion = new Transaccion();
-             TransaccionIO transaccionResponse ;
-        
+        Transaccion transaccion = new Transaccion();
+        TransaccionIO transaccionResponse;
+
         try {
-        
-        transaccion.setAplicativoExternocol(transaccionOI.getAplicativoExternocol());
-        transaccion.setDescripcion(transaccionOI.getDescripcion());
-        transaccion.setFechaCarga(new Date());
-        transaccion.setNombre(transaccionOI.getNombre());
-        transaccion.setTipo(transaccionOI.getTipo());
-        transaccion.setTipoAplicativo(transaccionOI.getTipoAplicativo());
-        Integer idUser = transaccionOI.getUsuario().getId();
-        transaccion.setUsuario(usuarioService.FindById(idUser));
-        transaccion.setTransaccionIni(transaccionOI.getTransaccionIni());
-        // Invoca lógica de negocio
-        Transaccion updatedTransaccion = service.save(transaccion); 
-        // Mapeo entity a response
-         transaccionResponse = mapper.map(updatedTransaccion, TransaccionIO.class);
-         
-         return transaccionResponse;
+
+            transaccion.setAplicativoExternocol(transaccionOI.getAplicativoExternocol());
+            transaccion.setDescripcion(transaccionOI.getDescripcion());
+            transaccion.setFechaCarga(new Date());
+            transaccion.setNombre(transaccionOI.getNombre());
+            transaccion.setTipo(transaccionOI.getTipo());
+            transaccion.setTipoAplicativo(transaccionOI.getTipoAplicativo());
+            Integer idUser = transaccionOI.getUsuario().getId();
+            transaccion.setUsuario(usuarioService.FindById(idUser));
+            transaccion.setTransaccionIni(transaccionOI.getTransaccionIni());
+            // Invoca lógica de negocio
+            Transaccion updatedTransaccion = service.save(transaccion);
+            // Mapeo entity a response
+            transaccionResponse = mapper.map(updatedTransaccion, TransaccionIO.class);
+
+            return transaccionResponse;
         } catch (Exception e) {
             e.printStackTrace();
             transaccionResponse = new TransaccionIO();
         }
-       
+
         return transaccionResponse;
     }
+
     @RequestMapping(value = "/updateTransaccion", method = RequestMethod.POST)
     public TransaccionIO updateTransaccion(@RequestBody TransaccionOI transaccionOI) {
         // Mapeo request a entity
-             Transaccion transaccion = new Transaccion();
-             TransaccionIO transaccionResponse ;
-        
-        try {       
-        transaccion.setAplicativoExternocol(transaccionOI.getAplicativoExternocol());
-        transaccion.setId(transaccionOI.getId());
-        transaccion.setDescripcion(transaccionOI.getDescripcion());
-        transaccion.setFechaCarga(new Date());
-        transaccion.setNombre(transaccionOI.getNombre());
-        transaccion.setTipo(transaccionOI.getTipo());
-        transaccion.setTipoAplicativo(transaccionOI.getTipoAplicativo());
-        Integer idUser = transaccionOI.getUsuario().getId();
-        transaccion.setUsuario(usuarioService.FindById(idUser));
-        Transaccion updatedTransaccion = service.update(transaccion);
+        Transaccion transaccion = new Transaccion();
+        TransaccionIO transaccionResponse;
 
-         transaccionResponse = mapper.map(updatedTransaccion, TransaccionIO.class);
-         
-         return transaccionResponse;
+        try {
+            transaccion.setAplicativoExternocol(transaccionOI.getAplicativoExternocol());
+            transaccion.setId(transaccionOI.getId());
+            transaccion.setDescripcion(transaccionOI.getDescripcion());
+            transaccion.setFechaCarga(new Date());
+            transaccion.setNombre(transaccionOI.getNombre());
+            transaccion.setTipo(transaccionOI.getTipo());
+            transaccion.setTipoAplicativo(transaccionOI.getTipoAplicativo());
+            Integer idUser = transaccionOI.getUsuario().getId();
+            transaccion.setUsuario(usuarioService.FindById(idUser));
+            Transaccion updatedTransaccion = service.update(transaccion);
+
+            transaccionResponse = mapper.map(updatedTransaccion, TransaccionIO.class);
+
+            return transaccionResponse;
         } catch (Exception e) {
             e.printStackTrace();
             transaccionResponse = new TransaccionIO();
         }
-       
+
         return transaccionResponse;
     }
 
@@ -113,28 +113,17 @@ public class TransaccionApi {
     }
 
     @RequestMapping(value = "/findTransacionByTipoUsuario", method = RequestMethod.GET)
-    public ListaMacroIO findTextoPantallaByIdPantalla(@RequestParam Integer idTipo,@RequestParam Integer idUsuario) {
+    public ListaMacroIO findTextoPantallaByIdPantalla(@RequestParam Integer idTipo, @RequestParam Integer idUsuario) {
         ListaMacroIO listResponse = new ListaMacroIO();
         List<Transaccion> transacciones = new ArrayList<>();
-       if(idTipo==1||idTipo==2){
-          transacciones = service.FindByTipoUsuario(idTipo,idUsuario);
-       }else if(idTipo==0){
-           transacciones = service.FindByIdUsuario(idUsuario);
-       }
-        
-        List<TransaccionIO> transaccionList = new ArrayList<>();
-        for (Transaccion transaccion : transacciones) {
-            TransaccionIO aux = mapper.map(transaccion, TransaccionIO.class);
-            transaccionList.add(aux);
+        if ((idTipo == 1 || idTipo == 2)&& idUsuario!=0) {
+            transacciones = service.FindByTipoUsuario(idTipo, idUsuario);
+        } else if (idTipo == 0) {
+            transacciones = service.FindByIdUsuario(idUsuario);
+        }else if(idUsuario==0){
+            transacciones = service.FindByTipo(idTipo);
         }
-        listResponse.setTransaccionList(transaccionList);
-        return listResponse;
-    }
-    
-    @RequestMapping(value = "/findTransacionByTipo", method = RequestMethod.GET)
-    public ListaMacroIO findTransacionByTipo(@RequestParam Integer idTipo) {
-        ListaMacroIO listResponse = new ListaMacroIO();
-        List<Transaccion> transacciones =  transacciones = service.FindByTipo(idTipo);
+
         List<TransaccionIO> transaccionList = new ArrayList<>();
         for (Transaccion transaccion : transacciones) {
             TransaccionIO aux = mapper.map(transaccion, TransaccionIO.class);
@@ -144,7 +133,34 @@ public class TransaccionApi {
         return listResponse;
     }
 
+    @RequestMapping(value = "/findByTransaccionIniId", method = RequestMethod.GET)
+    public ListaMacroIO findByTransaccionIniId(@RequestParam Integer idTransaccion) {
+        ListaMacroIO listResponse = new ListaMacroIO();
+        List<Transaccion> transacciones = new ArrayList<>();
+        List<TransaccionIO> transaccionList = new ArrayList<>();
+        transacciones.addAll(service.FindByTransaccionIniId(idTransaccion));
+        for (Transaccion transaccion : transacciones) {
+            TransaccionIO aux = mapper.map(transaccion, TransaccionIO.class);
+            transaccionList.add(aux);
+        }
+        listResponse.setTransaccionList(transaccionList);
+        return listResponse;
+    }
     
+
+    @RequestMapping(value = "/findTransacionByTipo", method = RequestMethod.GET)
+    public ListaMacroIO findTransacionByTipo(@RequestParam Integer idTipo) {
+        ListaMacroIO listResponse = new ListaMacroIO();
+        List<Transaccion> transacciones = transacciones = service.FindByTipo(idTipo);
+        List<TransaccionIO> transaccionList = new ArrayList<>();
+        for (Transaccion transaccion : transacciones) {
+            TransaccionIO aux = mapper.map(transaccion, TransaccionIO.class);
+            transaccionList.add(aux);
+        }
+        listResponse.setTransaccionList(transaccionList);
+        return listResponse;
+    }
+
     @RequestMapping(value = "/findTransacionByIdUsuario", method = RequestMethod.GET)
     public ListaMacroIO findTransacionByIdUsuario(@RequestParam Integer idUsuario) {
         ListaMacroIO listResponse = new ListaMacroIO();
