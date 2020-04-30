@@ -81,6 +81,7 @@ public class TransaccionApi {
             transaccion.setNombre(transaccionOI.getNombre());
             transaccion.setTipo(transaccionOI.getTipo());
             transaccion.setTipoAplicativo(transaccionOI.getTipoAplicativo());
+            transaccion.setTransaccionIni(transaccionOI.getTransaccionIni());
             Integer idUser = transaccionOI.getUsuario().getId();
             transaccion.setUsuario(usuarioService.FindById(idUser));
             Transaccion updatedTransaccion = service.update(transaccion);

@@ -45,6 +45,7 @@ public class UsuarioApi {
         if(usuario.getId()!=null){
            updatedUsuario = usuarioService.update(usuario); 
         }else{
+            usuario.setLogueado(Boolean.FALSE);
            updatedUsuario = usuarioService.save(usuario); 
         }            
         UsuarioIO  uariotResponse = mapper.map(updatedUsuario, UsuarioIO.class);
