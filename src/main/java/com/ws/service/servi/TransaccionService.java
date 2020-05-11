@@ -42,6 +42,12 @@ public class TransaccionService {
             }
          
         } 
+        if(transaccion.getModoCreacion()!=null){
+            if(transaccion.getModoCreacion()!=0){
+                trans.setTipoAplicativo(transaccion.getModoCreacion());
+            }
+         
+        } 
         
         if( transaccion.getTransaccionIni()!=null){
             if(transaccion.getTransaccionIni()!=0){

@@ -53,6 +53,7 @@ public class TransaccionApi {
             Integer idUser = transaccionOI.getUsuario().getId();
             transaccion.setUsuario(usuarioService.FindById(idUser));
             transaccion.setTransaccionIni(transaccionOI.getTransaccionIni());
+            transaccion.setModoCreacion(transaccionOI.getModoCreacion());
             // Invoca lógica de negocio
             Transaccion updatedTransaccion = service.save(transaccion);
             // Mapeo entity a response
@@ -66,7 +67,7 @@ public class TransaccionApi {
 
         return transaccionResponse;
     }
-
+    
     @RequestMapping(value = "/updateTransaccion", method = RequestMethod.POST)
     public TransaccionIO updateTransaccion(@RequestBody TransaccionOI transaccionOI) {
         // Mapeo request a entity
@@ -82,6 +83,7 @@ public class TransaccionApi {
             transaccion.setTipo(transaccionOI.getTipo());
             transaccion.setTipoAplicativo(transaccionOI.getTipoAplicativo());
             transaccion.setTransaccionIni(transaccionOI.getTransaccionIni());
+            transaccion.setModoCreacion(transaccionOI.getModoCreacion());
             Integer idUser = transaccionOI.getUsuario().getId();
             transaccion.setUsuario(usuarioService.FindById(idUser));
             Transaccion updatedTransaccion = service.update(transaccion);

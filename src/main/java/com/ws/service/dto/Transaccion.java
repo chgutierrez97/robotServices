@@ -76,6 +76,8 @@ public class Transaccion implements Serializable {
     @Size(min = 1, max = 3)
     @Column(name = "tipo")
     private String tipo;
+    @Column(name = "modo_creacion")
+    private Integer modoCreacion;
     @NotNull
     @JoinColumn(name = "usuario_id")
     @ManyToOne(optional = false)
@@ -130,10 +132,20 @@ public class Transaccion implements Serializable {
         this.pantallaCollection = pantallaCollection;
         this.transaccionIni = transaccionIni;
     }
-    
-    
-    
-    
+
+    public Transaccion(int id, String nombre, String descripcion, String aplicativoExternocol, Date fechaCarga, Integer tipoAplicativo, String tipo, Integer modoCreacion, Usuario usuario, Collection<Pantalla> pantallaCollection, Integer transaccionIni) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.aplicativoExternocol = aplicativoExternocol;
+        this.fechaCarga = fechaCarga;
+        this.tipoAplicativo = tipoAplicativo;
+        this.tipo = tipo;
+        this.modoCreacion = modoCreacion;
+        this.usuario = usuario;
+        this.pantallaCollection = pantallaCollection;
+        this.transaccionIni = transaccionIni;
+    }
 
     public int getId() {
         return id;
@@ -191,7 +203,14 @@ public class Transaccion implements Serializable {
         this.tipo = tipo;
     }
 
-    
+    public Integer getModoCreacion() {
+        return modoCreacion;
+    }
+
+    public void setModoCreacion(Integer modoCreacion) {
+        this.modoCreacion = modoCreacion;
+    }
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -215,6 +234,14 @@ public class Transaccion implements Serializable {
     public void setTransaccionIni(Integer transaccionIni) {
         this.transaccionIni = transaccionIni;
     }
+    
+    
+    
+    
+    
+    
+
+   
     
     
     
