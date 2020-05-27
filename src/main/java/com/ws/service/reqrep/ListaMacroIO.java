@@ -16,6 +16,7 @@ public class ListaMacroIO {
     private List<InputIO> InputList;
     private List<PantallaIO> PantallasList;
     private List<PersonaIO> PersonaList;
+    private List<ConexionAsDto> ConexionList;
     private List<RolesIO> RolesList;
     private List<SecurityQuetionIO> SecurityQuetionIOList;
     private List<StatusIO> StatusList;
@@ -104,5 +105,12 @@ public class ListaMacroIO {
     public void setExpresionesList(List<ExpresionesRegularesIO> ExpresionesList) {
         this.ExpresionesList = ExpresionesList;
     }
-       
+
+    public List<ConexionAsDto> getConexionList() {
+        return ConexionList;
+    }
+
+    public void setConexionList(List<ConexionAsDto> ConexionList) {
+        this.ConexionList = ConexionList;
+    }     
 }
