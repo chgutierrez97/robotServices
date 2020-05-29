@@ -66,6 +66,10 @@ public class TransaccionService {
         return dao.getTransaccionByTipoUsuario(tipo,idUsuario);
     }
     
+    public List<Transaccion> FindByNotTipo(Integer tipo ) {
+        return dao.getTransaccionByNotTipo(tipo);
+    }
+    
     public List<Transaccion> FindByTipo(Integer tipo ) {
         return dao.getTransaccionByTipo(tipo);
     }

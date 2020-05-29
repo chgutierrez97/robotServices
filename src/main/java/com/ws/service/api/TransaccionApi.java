@@ -1,10 +1,8 @@
 package com.ws.service.api;
 
-import com.ws.service.dto.TextoPantalla;
 import com.ws.service.dto.Transaccion;
 import com.ws.service.reqrep.TransaccionIO;
 import com.ws.service.reqrep.ListaMacroIO;
-import com.ws.service.reqrep.TextoPantallaIO;
 import com.ws.service.reqrep.TransaccionOI;
 import com.ws.service.servi.PantallaService;
 import com.ws.service.servi.TransaccionService;
@@ -54,9 +52,7 @@ public class TransaccionApi {
             transaccion.setUsuario(usuarioService.FindById(idUser));
             transaccion.setTransaccionIni(transaccionOI.getTransaccionIni());
             transaccion.setModoCreacion(transaccionOI.getModoCreacion());
-            // Invoca lógica de negocio
             Transaccion updatedTransaccion = service.save(transaccion);
-            // Mapeo entity a response
             transaccionResponse = mapper.map(updatedTransaccion, TransaccionIO.class);
 
             return transaccionResponse;
@@ -127,6 +123,22 @@ public class TransaccionApi {
             transacciones = service.FindByTipo(idTipo);
         }
 
+        List<TransaccionIO> transaccionList = new ArrayList<>();
+        for (Transaccion transaccion : transacciones) {
+            TransaccionIO aux = mapper.map(transaccion, TransaccionIO.class);
+            transaccionList.add(aux);
+        }
+        listResponse.setTransaccionList(transaccionList);
+        return listResponse;
+    }
+    
+    @RequestMapping(value = "/findByNotTipo", method = RequestMethod.GET)
+    public ListaMacroIO findByNotTipo(@RequestParam Integer idTipo) {
+        ListaMacroIO listResponse = new ListaMacroIO();
+        List<Transaccion> transacciones = new ArrayList<>();
+        if ((idTipo == 3)) {
+            transacciones = service.FindByNotTipo(idTipo);
+        } 
         List<TransaccionIO> transaccionList = new ArrayList<>();
         for (Transaccion transaccion : transacciones) {
             TransaccionIO aux = mapper.map(transaccion, TransaccionIO.class);
