@@ -1,0 +1,31 @@
+
+Ingresar a la carpeta donde se descargue el archivo .jar
+
+Crear clave publica encriptada en MD5 para el proceso interno.
+clavePublica2020 -> MD5 -> c7e80109e8e1b19c2595a3498e01dd24
+
+Comando para  encriptar el texto.
+  java -cp jasypt-1.9.0.jar org.jasypt.intf.cli.JasyptPBEStringEncryptionCLI input="root" password=c7e80109e8e1b19c2595a3498e01dd24 algorithm=PBEWithMD5AndDES
+  java -cp jasypt-1.9.0.jar org.jasypt.intf.cli.JasyptPBEStringEncryptionCLI input="12345678" password=c7e80109e8e1b19c2595a3498e01dd24 algorithm=PBEWithMD5AndDES
+Comando para  des-encriptar el texto
+  java -cp jasypt-1.9.0.jar org.jasypt.intf.cli.JasyptPBEStringDecryptionCLI input="texto a desencriptar" password=c7e80109e8e1b19c2595a3498e01dd24 algorithm=PBEWithMD5AndDES
+ 
+ 
+Implementacion en proyecto Spring Boot.
+ 
+1.- Agregar dependencia al pom.xml  
+	<dependency>
+		<groupId>com.github.ulisesbocchio</groupId>
+		<artifactId>jasypt-spring-boot-starter</artifactId>
+		<version>2.0.0</version>
+	</dependency>
+
+2.- Compilar proyecto para descargar dependencia.
+   mvn clean install
+ 
+3.- Implementacion en el application.properties.
+	spring.datasource.username:ENC(K2cUPPlfdkj0cTK19xWNNg==)
+	spring.datasource.password:ENC(pqEuDV59UxdB874NjytG+FkODvXweNue)
+	jasypt.encryptor.password=c7e80109e8e1b19c2595a3498e01dd24
+
+	

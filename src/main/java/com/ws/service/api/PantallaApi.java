@@ -60,6 +60,27 @@ public class PantallaApi {
         PantallaIO pantallatResponse = mapper.map(updatedPantalla, PantallaIO.class);
         return pantallatResponse;
     }
+    @RequestMapping(value = "/savePantalla2", method = RequestMethod.POST)
+    public PantallaIO savePantalla2(@RequestBody PantallaIO pantallaIO) {
+        // Mapeo request a entity
+        Pantalla pantalla = mapper.map(pantallaIO, Pantalla.class);
+        // Invoca lógica de negocio
+        pantalla.setTransaccionId(transaccionService.FindById(pantallaIO.getIdTransaccion()));
+        Pantalla updatedPantalla = service.save(pantalla);
+        for (Input input : updatedPantalla.getInputCollection()) {
+            input.setPantalla(updatedPantalla);
+            input.setId(inputService.save(input).getId());
+        }
+
+        for (TextoPantalla textoPantalla : updatedPantalla.getTextoPantallaCollection()) {
+            textoPantalla.setPantalla(pantalla);
+            textoPantalla.setId(textoPantallaService.save(textoPantalla).getId());
+        }
+
+        // Mapeo entity a response
+        PantallaIO pantallatResponse = mapper.map(updatedPantalla, PantallaIO.class);
+        return pantallatResponse;
+    }
 
     @RequestMapping(value = "/findAllPantalla", method = RequestMethod.GET)
     public ListaMacroIO findAllPantalla() {

@@ -74,16 +74,10 @@ public class Pantalla implements Serializable {
     @Size(min = 1, max = 800)
     @Column(name = "pantalla_scrips")
     private String pantallaScrips;
-																											
-								
-									
 
     @OneToMany(mappedBy = "pantalla")
     private Collection<Input> inputCollection;
     
-      
- 
-  
     @NotNull
     @JoinColumn(name = "transaccion_id")
     @ManyToOne(optional = false)
@@ -223,10 +217,7 @@ public class Pantalla implements Serializable {
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
-											  
-												 
-						 
-		 
+	 
         return true;
     }
 
