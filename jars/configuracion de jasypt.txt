@@ -1,5 +1,5 @@
 
-Ingresar a la carpeta donde se descargue el archivo .jar
+Ingresar a la carpeta donde se descargue el archivo .jar  si esta comprimido decomprimalo eh ingresa por la terminal de comandos hasta llegar donde este el archivo .jar
 
 Crear clave publica encriptada en MD5 para el proceso interno.
 clavePublica2020 -> MD5 -> c7e80109e8e1b19c2595a3498e01dd24

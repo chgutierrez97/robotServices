@@ -69,8 +69,37 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <configuration>            
+                            <mainClass>com.baeldung.heap.HeapSizeDemoApplication</mainClass>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <executable>true</executable>
+                    <jvmArguments>
+                        -Xms16m \ 
+                        -Xmx48m \
+                        -XX:MaxMetaspaceSize=64m \
+                        -XX:CompressedClassSpaceSize=8m \
+                        -Xss256k \
+                        -Xmn8m \
+                        -XX:InitialCodeCacheSize=4m \
+                        -XX:ReservedCodeCacheSize=8m \
+                        -XX:MaxDirectMemorySize=16m
+                    </jvmArguments>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+                <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
+                </configuration>
             </plugin>
         </plugins>
+        
     </build>
-
 </project>

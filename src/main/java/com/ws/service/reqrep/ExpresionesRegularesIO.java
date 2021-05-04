@@ -13,6 +13,7 @@ public class ExpresionesRegularesIO implements Serializable {
     private Integer id;
     private String codError;
     private String mensajeError;
+    private String wAccionar;
 
     public ExpresionesRegularesIO() {
     }
@@ -51,6 +52,14 @@ public class ExpresionesRegularesIO implements Serializable {
         this.mensajeError = mensajeError;
     }
 
+    public String getwAccionar() {
+        return wAccionar;
+    }
+
+    public void setwAccionar(String wAccionar) {
+        this.wAccionar = wAccionar;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -73,9 +82,7 @@ public class ExpresionesRegularesIO implements Serializable {
 
     @Override
     public String toString() {
-        return "ExpresionesRegularesIO{" + "id=" + id + ", codError=" + codError + ", mensajeError=" + mensajeError + '}';
+        return "ExpresionesRegularesIO{" + "id=" + id + ", codError=" + codError + ", mensajeError=" + mensajeError + ", wAccionar=" + wAccionar + '}';
     }
 
-
-    
 }

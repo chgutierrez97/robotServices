@@ -49,6 +49,9 @@ public class ExpresionesRegulares implements Serializable {
     @Size(min = 1, max = 200)
     @Column(name = "mensaje_error")
     private String mensajeError;
+    @Size(max = 30)
+    @Column(name = "w_accionar")
+    private String wAccionar;
 
     public ExpresionesRegulares() {
     }
@@ -87,6 +90,14 @@ public class ExpresionesRegulares implements Serializable {
         this.mensajeError = mensajeError;
     }
 
+    public String getwAccionar() {
+        return wAccionar;
+    }
+
+    public void setwAccionar(String wAccionar) {
+        this.wAccionar = wAccionar;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
