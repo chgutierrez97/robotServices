@@ -23,6 +23,8 @@ public class ListaMacroIO {
     private List<TextoPantallaIO> TextoPantallaList;
     private List<UsuarioIO> UsuarioList;
     private List<ExpresionesRegularesIO> ExpresionesList;
+    private List<CancelacionesDto> CancelacionesList;
+    
     
 
 
@@ -112,5 +114,15 @@ public class ListaMacroIO {
 
     public void setConexionList(List<ConexionAsDto> ConexionList) {
         this.ConexionList = ConexionList;
-    }     
+    }   
+
+    public List<CancelacionesDto> getCancelacionesList() {
+        return CancelacionesList;
+    }
+
+    public void setCancelacionesList(List<CancelacionesDto> CancelacionesList) {
+        this.CancelacionesList = CancelacionesList;
+    }
+    
+    
 }
