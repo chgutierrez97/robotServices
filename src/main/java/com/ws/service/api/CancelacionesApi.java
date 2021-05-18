@@ -61,17 +61,20 @@ public class CancelacionesApi {
     @RequestMapping(value = "/saveCancelacionGet", method = RequestMethod.GET)
     public CancelacionesDto saveCancelacionGet(@RequestParam Integer flag, @RequestParam String op, @RequestParam String alterna, @RequestParam String proceso) {
         Cancelaciones cancelacion = new Cancelaciones();
+        System.out.println("alterna -->"+ alterna);
+        
         cancelacion.setFlag(flag);
         cancelacion.setOpion(op);
         cancelacion.setFecha(new Date());
         cancelacion.setProceso(proceso);
+        alterna=alterna.replace(" ", "+");
         String  desencritada ="";
         try {
-             desencritada = ultilEncrips.decrypt(key, iv, alterna);
+                desencritada = ultilEncrips.decrypt(key, iv, alterna);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        cancelacion.setAlterna(alterna);
+        cancelacion.setAlterna(desencritada);
         Cancelaciones cancelacionSave = cancelacionesService.save(cancelacion);
         CancelacionesDto cancelacionAux = mapper.map(cancelacionSave, CancelacionesDto.class);
         return cancelacionAux;
