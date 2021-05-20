@@ -97,16 +97,18 @@ public class TransaccionApi {
 
     @GetMapping(value = "/findAllTransaccion", produces = "application/json")
     public ListaMacroIO findAllTransaccion() {
-
         ListaMacroIO respuesta = new ListaMacroIO();
-
         List<Transaccion> trans = service.FindAll();
         List<TransaccionIO> TransaccionsList = new ArrayList<>();
+        TransaccionIO aux = new TransaccionIO();
         for (Transaccion tran : trans) {
-            TransaccionIO aux = mapper.map(tran, TransaccionIO.class);
+            if(pantallaService.getPantallaByIdTrasaccion(tran.getId()).size()==0){
+                    service.DeleteTransaccionById(tran.getId());
+            }else{
+                aux = mapper.map(tran, TransaccionIO.class);
+            }            
             TransaccionsList.add(aux);
         }
-
         respuesta.setTransaccionList(TransaccionsList);
         return respuesta;
     }
