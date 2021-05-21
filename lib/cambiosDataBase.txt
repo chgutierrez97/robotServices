@@ -1,3 +1,15 @@
 /******************** se le agrega la columna `w_accionar` a la tabla expreciones regulares************/
 
 ALTER TABLE `prorobot`.`expresiones_regulares` ADD COLUMN `w_accionar` VARCHAR(30) NULL DEFAULT NULL AFTER `w_accionar`;
+
+
+
+CREATE TABLE `cancelaciones` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `proceso` varchar(100) NOT NULL,
+  `flag` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `opion` varchar(2) DEFAULT NULL,
+  `alterna` varchar(1500) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) 
