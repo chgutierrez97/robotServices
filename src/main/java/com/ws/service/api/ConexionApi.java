@@ -18,9 +18,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 @RestController
 @RequestMapping("/api")
 public class ConexionApi {
+     Logger LOGGER = LoggerFactory.getLogger(ConexionApi.class);
 
     @Autowired
     PantallaService service;
@@ -62,23 +67,20 @@ public class ConexionApi {
         return listResponse;
     }
 
-//    @RequestMapping(value = "/updateScripPantalla", method = RequestMethod.GET)
-//    public Boolean updateScripPantalla(@RequestParam String scrips, @RequestParam Integer pantallaId) {
-//        boolean flag = true;
-//        try {
-//            service.updateScripPantalla(scrips, pantallaId);
-//        } catch (EmptyResultDataAccessException e) {
-//            flag = false;
-//            e.printStackTrace();
-//        } catch (Exception e) {
-//            flag = false;
-//            e.printStackTrace();
-//        }
-//        return flag;
-//    }
+
     @RequestMapping(value = "/findConexionById", method = RequestMethod.GET)
     public ConexionAsDto findConexionById(@RequestParam Integer id) {
         Conexion conec = conexionService.FindById(id);
+        
+        
+        LOGGER.debug("Request {}", id);
+		
+		LOGGER.info("Response {}", "en esta va lo que vas a mostrar ");
+                 LOGGER.debug("This is a debug message");
+    LOGGER.info("This is an info message");
+    LOGGER.warn("This is a warn message");
+    LOGGER.error("This is an error message");
+        
         if (conec != null) {
             ConexionAsDto cAux = mapper.map(conec, ConexionAsDto.class);
             return cAux;
@@ -88,19 +90,5 @@ public class ConexionApi {
         }
     }
 
-//
-//    @RequestMapping(value = "/deletePantallaById", method = RequestMethod.GET)
-//    public boolean deletePantallaById(@RequestParam Integer id) {
-//        boolean flag = true;
-//        try {
-//            service.DeletePantallaById(id);
-//        } catch (EmptyResultDataAccessException e) {
-//            flag = false;
-//            e.printStackTrace();
-//        } catch (Exception e) {
-//            flag = false;
-//            e.printStackTrace();
-//        }
-//        return flag;
-//    }
+
 }
