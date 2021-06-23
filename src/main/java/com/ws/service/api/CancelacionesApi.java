@@ -9,6 +9,7 @@ import com.ws.service.servi.CancelacionesService;
 import com.ws.service.servi.StatusService;
 import com.ws.service.util.UtilRobotEncrips;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
@@ -34,7 +35,7 @@ public class CancelacionesApi {
 
     @Autowired
     Mapper mapper;
-    
+
     @Autowired
     UtilRobotEncrips ultilEncrips;
 
@@ -61,26 +62,28 @@ public class CancelacionesApi {
     @RequestMapping(value = "/saveCancelacionGet", method = RequestMethod.GET)
     public CancelacionesDto saveCancelacionGet(@RequestParam Integer flag, @RequestParam String op, @RequestParam String alterna, @RequestParam String proceso) {
         Cancelaciones cancelacion = new Cancelaciones();
-        System.out.println("alterna -->"+ alterna);
-        
+        System.out.println("alterna -->" + alterna);
+
         cancelacion.setFlag(flag);
         cancelacion.setOpion(op);
         cancelacion.setFecha(new Date());
         cancelacion.setProceso(proceso);
-        alterna=alterna.replace(" ", "+");
-        String  desencritada ="";
+
+        String desencritada = "";
         try {
-                desencritada = ultilEncrips.decrypt(key, iv, alterna);
+            //System.out.println("alterna  codificada--> " + alterna);
+            alterna = URLDecoder.decode(alterna, "UTF-8");
+           // System.out.println("alterna  decodificada--> " + alterna);
+
+            //desencritada = ultilEncrips.decrypt(key, iv, alterna);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        cancelacion.setAlterna(desencritada);
+        cancelacion.setAlterna(alterna);
         Cancelaciones cancelacionSave = cancelacionesService.save(cancelacion);
         CancelacionesDto cancelacionAux = mapper.map(cancelacionSave, CancelacionesDto.class);
         return cancelacionAux;
     }
-
- 
 
     @RequestMapping(value = "/findAllCancelacion", method = RequestMethod.GET)
     public ListaMacroIO findAllStatus() {
@@ -89,8 +92,16 @@ public class CancelacionesApi {
         List<CancelacionesDto> cancelacionesList = new ArrayList<>();
         for (Cancelaciones cancelacion : listCancelaciones) {
             CancelacionesDto cancelacionAux = mapper.map(cancelacion, CancelacionesDto.class);
+            try {
+                String alternative = cancelacionAux.getAlterna().trim();
+                alternative = URLDecoder.decode(alternative, "UTF-8");
+                cancelacionAux.setAlterna(alternative);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             cancelacionesList.add(cancelacionAux);
         }
+
         listResponse.setCancelacionesList(cancelacionesList);
         return listResponse;
     }
