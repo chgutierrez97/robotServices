@@ -50,7 +50,7 @@ public class Cancelaciones implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "fecha")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
     @Size(max = 2)
     @Column(name = "opion")
