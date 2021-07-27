@@ -10,10 +10,13 @@ import com.ws.service.servi.InputService;
 import com.ws.service.servi.PantallaService;
 import com.ws.service.servi.TextoPantallaService;
 import com.ws.service.servi.TransaccionService;
+import com.ws.service.util.UtilRobotEncrips;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +42,15 @@ public class PantallaApi {
     @Autowired
     Mapper mapper;
 
+    @Autowired
+    UtilRobotEncrips ultilEncrips;
+
+    @Value("${com.scrips.key}")
+    private String key;
+
+    @Value("${com.scrips.iv}")
+    private String iv;
+
     @RequestMapping(value = "/savePantalla", method = RequestMethod.POST)
     public PantallaIO savePantalla(@RequestBody PantallaIO pantallaIO) {
         // Mapeo request a entity
@@ -60,6 +72,7 @@ public class PantallaApi {
         PantallaIO pantallatResponse = mapper.map(updatedPantalla, PantallaIO.class);
         return pantallatResponse;
     }
+
     @RequestMapping(value = "/savePantalla2", method = RequestMethod.POST)
     public PantallaIO savePantalla2(@RequestBody PantallaIO pantallaIO) {
         // Mapeo request a entity
@@ -111,6 +124,33 @@ public class PantallaApi {
     @RequestMapping(value = "/updateScripPantalla", method = RequestMethod.GET)
     public Boolean updateScripPantalla(@RequestParam String scrips, @RequestParam Integer pantallaId) {
         boolean flag = true;
+        try {
+            scrips = URLDecoder.decode(scrips, "UTF-8");
+            if (scrips.contains("conec")) {
+                String[] dataForm = scrips.split(",");
+                if (dataForm.length == 10) {
+                    String clave = dataForm[9].split(":")[0];
+                    String valor = dataForm[9].split(":")[1];
+                    //proceso de encriptado
+                    valor = ultilEncrips.encrypt(key, iv, valor);
+                    
+                    clave = clave + ":" + valor;
+                    scrips = scrips.replace(dataForm[9], clave);
+                } else if (dataForm.length == 11) {
+                    String clave = dataForm[10].split(":")[0];
+                    String valor = dataForm[10].split(":")[1];
+                    //proceso de encriptado
+                    valor = ultilEncrips.encrypt(key, iv, valor);
+                    clave = clave + ":" + valor;
+                    scrips = scrips.replace(dataForm[10], clave);
+                }
+
+            }
+           
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         try {
             service.updateScripPantalla(scrips, pantallaId);
         } catch (EmptyResultDataAccessException e) {
