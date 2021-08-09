@@ -6,6 +6,7 @@ import com.ws.service.reqrep.ExpresionesRegularesIO;
 import com.ws.service.reqrep.InputIO;
 import com.ws.service.reqrep.ListaMacroIO;
 import com.ws.service.servi.ExpresionesAsService;
+import com.ws.service.servi.PantallaService;
 import java.util.ArrayList;
 import java.util.List;
 import org.dozer.Mapper;
@@ -23,6 +24,10 @@ public class ExpresinRegulaApi {
 
     @Autowired
     ExpresionesAsService service;
+    
+        @Autowired
+    PantallaService servicePantalla;
+
 
     @Autowired
     Mapper mapper;
@@ -77,7 +82,11 @@ public class ExpresinRegulaApi {
     public boolean deleteExpresionById(@RequestParam Integer id) {
         boolean flag = true;
         try {
-            service.DeleteRolById(id);
+            if(servicePantalla.getPantallaByIdExpresion(id)){
+               service.DeleteRolById(id);
+            }else{
+                flag = false;
+            }
         } catch (EmptyResultDataAccessException e) {
             flag = false;
             e.printStackTrace();

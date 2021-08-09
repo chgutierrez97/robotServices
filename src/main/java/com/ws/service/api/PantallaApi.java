@@ -120,6 +120,14 @@ public class PantallaApi {
         listResponse.setPantallasList(textoList);
         return listResponse;
     }
+    
+        @RequestMapping(value = "/findPantallaByIdExpresion", method = RequestMethod.GET)
+       public Boolean findPantallaByIdExpresion(@RequestParam Integer idExpresion) {
+        ListaMacroIO listResponse = new ListaMacroIO();
+        Boolean textos = service.getPantallaByIdExpresion(idExpresion);
+        
+        return textos;
+    }
 
     @RequestMapping(value = "/updateScripPantalla", method = RequestMethod.GET)
     public Boolean updateScripPantalla(@RequestParam String scrips, @RequestParam Integer pantallaId) {

@@ -23,7 +23,7 @@ public interface PantallaRepository extends JpaRepository<Pantalla, Integer> {
 
     @Query(value = "select  * from  pantalla  where transaccion_id in ( ?1 , (select t1.transaccion_ini from transaccion t1 where t1.id=?1)) ", nativeQuery = true)
     List<Pantalla> getPantallaByIdTrasaccionEmulacion(Integer idTransaccion);
-
+    
     @Transactional
     @Modifying
     int deleteByTransaccionId(Integer transaccionId);

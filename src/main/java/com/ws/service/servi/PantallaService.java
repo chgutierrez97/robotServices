@@ -31,6 +31,18 @@ public class PantallaService {
     public List<Pantalla> getPantallaByIdTrasaccionEmulacion(Integer idTransaccion) {
         return dao.getPantallaByIdTrasaccionEmulacion(idTransaccion);
     }
+    
+     public Boolean getPantallaByIdExpresion(Integer idExpresion) {
+        List<Pantalla> pantallass = dao.findAll();
+        Boolean flag = Boolean.TRUE;
+         for (Pantalla pantallas : pantallass) {
+             if(pantallas.getPantallaScrips().contains("w_expresion:"+idExpresion)){
+                flag = Boolean.FALSE;
+                break;
+             }   
+         }
+        return flag;
+    }
 
     public Pantalla FindById(Integer id) {
         return dao.findById(id).get();
